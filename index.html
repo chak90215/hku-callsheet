@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Call Sheet | May 18 - 2026</title>
+    <style>
+        :root {
+            --bg-color: #f9f9fa;
+            --text-main: #333;
+            --text-muted: #888;
+            --green-tag: #c8e6c9;
+            --blue-tag: #bbdefb;
+            --border-color: #eee;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            padding-bottom: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            padding: 20px 20px 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            margin: 0 0 5px 0;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .header .date {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .info-cards {
+            display: flex;
+            padding: 15px 20px;
+            gap: 15px;
+        }
+
+        .card {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .card span {
+            display: block;
+            font-size: 14px;
+            color: #ddd;
+            margin-top: 5px;
+            font-weight: normal;
+            text-transform: none;
+        }
+
+        /* Talent Grid */
+        .talent-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px 5px;
+            padding: 15px 20px;
+            background: #fff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -6px rgba(0,0,0,0.1);
+        }
+
+        .talent-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .talent-item.inactive {
+            opacity: 0.3;
+            filter: grayscale(100%);
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: #333;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .talent-item:active .avatar {
+            transform: scale(0.9);
+        }
+
+        .talent-name {
+            font-size: 11px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Timeline */
+        .timeline {
+            padding: 20px 15px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        /* Opacity rule for filtering */
+        body.is-filtered .row.dimmed {
+            opacity: 0.25;
+        }
+
+        body.is-filtered .row.highlight {
+            opacity: 1;
+            border-color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transform: scale(1.01);
+        }
+
+        .time-badge {
+            width: 65px;
+            min-width: 65px;
+            padding: 8px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 6px;
+            margin-right: 15px;
+        }
+
+        .bg-green { background-color: var(--green-tag); color: #2e7d32; }
+        .bg-blue { background-color: var(--blue-tag); color: #1565c0; }
+        .bg-gray { background-color: #f5f5f5; color: #666; }
+
+        .details {
+            flex-grow: 1;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .sub-details {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: normal;
+            margin-top: 2px;
+        }
+
+        /* Avatar color palette */
+        .c-MUA { background: #222; font-size: 12px; } /* MUA 專屬黑底 */
+        .c-Anais { background: #E91E63; }
+        .c-Kotlova { background: #9C27B0; }
+        .c-Etse { background: #673AB7; }
+        .c-Ariel { background: #3F51B5; }
+        .c-Magnus { background: #009688; }
+        .c-Eirik { background: #4CAF50; }
+        .c-Fatima { background: #FF9800; }
+        .c-Arjun { background: #795548; }
+        .c-Gottfried{ background: #607D8B; }
+        .c-Liam { background: #F44336; }
+        .c-Seerat { background: #00BCD4; }
+        .c-Yana { background: #FF5722; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>callsheet</h1>
+        <div class="date">May 18 — 2026</div>
+    </div>
+
+    <div class="info-cards">
+        <div class="card">
+            MAKE UP LOCATION
+            <span>TBC</span>
+        </div>
+        <div class="card">
+            CONTACT PERSON INFO
+            <span>TBC</span>
+        </div>
+    </div>
+
+    <div class="talent-grid" id="talentGrid">
+        </div>
+
+    <div class="timeline" id="timeline">
+        </div>
+</div>
+
+<script>
+    // 模特兒與MUA名單 (將 MUA 放第一個)
+    const talents = [
+        "MUA", "Anaïs", "Kotlova", "Etse", "Ariel", "Magnus", "Eirik",
+        "Fatima", "Arjun", "Gottfried", "Liam", "Seerat", "Yana"
+    ];
+
+    // 完整行程表資料 (幫 MUA 標註了專屬的工作時段)
+    const schedule = [
+        { time: "7:05", type: "green", title: "MUA & HAIR arrived", sub: "", members: ["MUA"] },
+        { time: "7:20", type: "green", title: "Etse arrived", sub: "make up & hair 35mins", members: ["Etse", "MUA"] },
+        { time: "7:55", type: "green", title: "Ariel arrived", sub: "make up & hair 40mins", members: ["Ariel", "MUA"] },
+        { time: "8:00", type: "gray", title: "Crew arrived", sub: "", members: [] },
+        { time: "8:30", type: "gray", title: "HKU Team arrived", sub: "", members: [] },
+        { time: "8:35", type: "green", title: "Magnus arrived", sub: "make up & hair 20mins", members: ["Magnus", "MUA"] },
+        { time: "8:45", type: "blue", title: "Shot 1", sub: "(Etse, Ariel)", members: ["Etse", "Ariel"] },
+        { time: "9:00", type: "green", title: "Gottfried arrived", sub: "make up & hair 20mins", members: ["Gottfried", "MUA"] },
+        { time: "9:20", type: "green", title: "Kotlova arrived", sub: "make up & hair 40mins", members: ["Kotlova", "MUA"] },
+        { time: "9:20", type: "blue", title: "Shot 2", sub: "(Gottfried, Etse, Ariel, Magnus)", members: ["Gottfried", "Etse", "Ariel", "Magnus"] },
+        { time: "10:05", type: "blue", title: "Shot 3", sub: "(Gottfried, Etse, Ariel, Magnus, Kotlova)", members: ["Gottfried", "Etse", "Ariel", "Magnus", "Kotlova"] },
+        { time: "10:10", type: "green", title: "Seerat arrived", sub: "make up & hair 40mins", members: ["Seerat", "MUA"] },
+        { time: "11:00", type: "blue", title: "Shot 4", sub: "(Gottfried, Ariel, Kotlova, Seerat)", members: ["Gottfried", "Ariel", "Kotlova", "Seerat"] },
+        { time: "11:00", type: "green", title: "MUA & HAIR Lunch", sub: "", members: ["MUA"] },
+        { time: "11:30", type: "blue", title: "Shot 5", sub: "(Gottfried, Ariel, Magnus, Kotlova, Seerat)", members: ["Gottfried", "Ariel", "Magnus", "Kotlova", "Seerat"] },
+        { time: "12:10", type: "blue", title: "Shot 6", sub: "(Gottfried, Etse, Ariel, Magnus)", members: ["Gottfried", "Etse", "Ariel", "Magnus"] },
+        { time: "12:15", type: "green", title: "Eirik arrived", sub: "make up & hair 30mins", members: ["Eirik", "MUA"] },
+        { time: "12:45", type: "green", title: "Fatima arrived", sub: "make up & hair 30mins", members: ["Fatima", "MUA"] },
+        { time: "12:55", type: "blue", title: "Shot 7", sub: "(Gottfried, Etse, Ariel, Magnus, Seerat, Eirik)", members: ["Gottfried", "Etse", "Ariel", "Magnus", "Seerat", "Eirik"] },
+        { time: "13:25", type: "green", title: "Arjun arrived", sub: "make up & hair 25mins", members: ["Arjun", "MUA"] },
+        { time: "13:30", type: "blue", title: "Lunch time", sub: "", members: [] },
+        { time: "13:30", type: "green", title: "Liam arrived", sub: "make up & hair 25mins", members: ["Liam", "MUA"] },
+        { time: "14:15", type: "green", title: "Anaïs arrived", sub: "make up & hair 40mins", members: ["Anaïs", "MUA"] },
+        { time: "14:20", type: "blue", title: "Shot 8", sub: "(Etse, Ariel, Magnus, Fatima, Arjun, Liam)", members: ["Etse", "Ariel", "Magnus", "Fatima", "Arjun", "Liam"] },
+        { time: "14:55", type: "green", title: "Yana arrived", sub: "make up & hair 35mins", members: ["Yana", "MUA"] },
+        { time: "15:00", type: "blue", title: "Shot 9", sub: "(Ariel, Kotlova, Magnus, Arjun, Anaïs)", members: ["Ariel", "Kotlova", "Magnus", "Arjun", "Anaïs"] },
+        { time: "15:30", type: "green", title: "MUA & HAIR WRAP", sub: "", members: ["MUA"] },
+        { time: "16:10", type: "blue", title: "Shot 10", sub: "(Arjun, Liam, Yana)", members: ["Arjun", "Liam", "Yana"] },
+        { time: "16:50", type: "blue", title: "Shot 11", sub: "(Kotlova, Eirik, Fatima, Arjun, Anaïs)", members: ["Kotlova", "Eirik", "Fatima", "Arjun", "Anaïs"] },
+        { time: "17:35", type: "blue", title: "Shot 12", sub: "(Kotlova, Arjun, Liam, Yana)", members: ["Kotlova", "Arjun", "Liam", "Yana"] },
+        { time: "18:05", type: "blue", title: "Shot 13", sub: "(Arjun, Anaïs, Yana)", members: ["Arjun", "Anaïs", "Yana"] }
+    ];
+
+    let currentFilter = null;
+
+    // 渲染上方人物大頭貼
+    const talentGrid = document.getElementById('talentGrid');
+    talents.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'talent-item';
+        div.setAttribute('data-name', t);
+        
+        // 設定 MUA 特殊顯示與其他 Talent 邏輯
+        const initial = t === "MUA" ? "MUA" : t.substring(0, 2).toUpperCase();
+        const displayName = t === "MUA" ? "Make Up" : t;
+        const className = `c-${t.replace('ï', 'i')}`;
+
+        div.innerHTML = `
+            <div class="avatar ${className}">${initial}</div>
+            <div class="talent-name">${displayName}</div>
+        `;
+        div.addEventListener('click', () => toggleFilter(t));
+        talentGrid.appendChild(div);
+    });
+
+    // 渲染下方行程表
+    const timeline = document.getElementById('timeline');
+    schedule.forEach((item, index) => {
+        const row = document.createElement('div');
+        row.className = 'row';
+        row.setAttribute('data-members', item.members.join(','));
+        row.id = 'row-' + index;
+        
+        row.innerHTML = `
+            <div class="time-badge bg-${item.type}">${item.time}</div>
+            <div class="details">
+                <div>${item.title}</div>
+                ${item.sub ? `<div class="sub-details">${item.sub}</div>` : ''}
+            </div>
+        `;
+        timeline.appendChild(row);
+    });
+
+    // 點擊篩選邏輯
+    function toggleFilter(name) {
+        const body = document.body;
+        const allTalentDivs = document.querySelectorAll('.talent-item');
+        const allRows = document.querySelectorAll('.row');
+
+        if (currentFilter === name) {
+            // 解除篩選 (還原)
+            currentFilter = null;
+            body.classList.remove('is-filtered');
+            allTalentDivs.forEach(el => el.classList.remove('inactive'));
+            allRows.forEach(el => {
+                el.classList.remove('dimmed');
+                el.classList.remove('highlight');
+            });
+        } else {
+            // 套用篩選
+            currentFilter = name;
+            body.classList.add('is-filtered');
+            
+            // 處理大頭貼樣式
+            allTalentDivs.forEach(el => {
+                if(el.getAttribute('data-name') === name) {
+                    el.classList.remove('inactive');
+                } else {
+                    el.classList.add('inactive');
+                }
+            });
+
+            // 處理行程透明度
+            allRows.forEach(el => {
+                const membersAttr = el.getAttribute('data-members');
+                if (membersAttr.includes(name)) {
+                    el.classList.add('highlight');
+                    el.classList.remove('dimmed');
+                } else {
+                    el.classList.add('dimmed');
+                    el.classList.remove('highlight');
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>
