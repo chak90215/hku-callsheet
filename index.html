@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Call Sheet V8 | May 18 - 2026</title>
+    <title>Call Sheet Batch 2 | May 18 - 2026</title>
     <style>
         :root {
             --bg-color: #f9f9fa;
@@ -11,7 +11,9 @@
             --text-muted: #888;
             --green-tag: #c8e6c9;
             --blue-tag: #bbdefb;
+            --yellow-tag: #ffecb3;
             --border-color: #eee;
+            --primary: #1a365d;
         }
 
         body {
@@ -39,19 +41,21 @@
 
         .header h1 {
             margin: 0 0 5px 0;
-            font-size: 28px;
-            font-weight: 300;
-            letter-spacing: 1px;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: var(--primary);
         }
 
         .header .version {
-            font-size: 12px;
-            background: #333;
+            font-size: 11px;
+            background: #e53e3e;
             color: #fff;
-            padding: 2px 6px;
+            padding: 3px 6px;
             border-radius: 4px;
             vertical-align: middle;
             margin-left: 8px;
+            font-weight: bold;
         }
 
         .header .date {
@@ -63,7 +67,7 @@
         .info-cards {
             display: flex;
             padding: 15px 20px;
-            gap: 15px;
+            gap: 10px;
         }
 
         .card {
@@ -75,14 +79,16 @@
             color: var(--text-muted);
             text-transform: uppercase;
             font-weight: bold;
+            text-align: center;
+            background: #fafafa;
         }
 
         .card span {
             display: block;
-            font-size: 14px;
-            color: #ccc;
+            font-size: 15px;
+            color: var(--primary);
             margin-top: 5px;
-            font-weight: normal;
+            font-weight: 700;
             text-transform: none;
         }
 
@@ -90,14 +96,14 @@
         .talent-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 12px 5px;
+            gap: 15px 5px;
             padding: 15px 20px;
             background: #fff;
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 6px -6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px -6px rgba(0,0,0,0.1);
         }
 
         .talent-item {
@@ -109,25 +115,24 @@
         }
 
         .talent-item.inactive {
-            opacity: 0.2;
+            opacity: 0.25;
             filter: grayscale(100%);
         }
 
         .avatar {
             width: 44px;
             height: 44px;
-            border-radius: 12px;
-            background: #333;
+            border-radius: 14px;
+            background: var(--primary);
             color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             margin-bottom: 6px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             transition: transform 0.2s ease;
-            overflow: hidden;
         }
 
         .talent-item:active .avatar {
@@ -148,13 +153,13 @@
 
         .row {
             display: flex;
-            align-items: center;
-            margin-bottom: 10px;
+            align-items: flex-start;
+            margin-bottom: 12px;
             background: #fff;
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            padding: 8px;
-            transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+            padding: 12px 10px;
+            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         body.is-filtered .row.dimmed {
@@ -163,176 +168,398 @@
 
         body.is-filtered .row.highlight {
             opacity: 1;
-            border-color: #333;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-color: #3182ce;
+            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
             transform: scale(1.02);
             background: #fff;
         }
 
         .time-badge {
-            width: 65px;
-            min-width: 65px;
-            padding: 8px 0;
+            width: 70px;
+            min-width: 70px;
+            padding: 6px 0;
             text-align: center;
-            font-weight: bold;
-            font-size: 14px;
+            font-weight: 800;
+            font-size: 13px;
             border-radius: 6px;
-            margin-right: 15px;
+            margin-right: 12px;
         }
 
         .bg-green { background-color: var(--green-tag); color: #2e7d32; }
         .bg-blue { background-color: var(--blue-tag); color: #1565c0; }
-        .bg-gray { background-color: #f5f5f5; color: #666; }
+        .bg-gray { background-color: #edf2f7; color: #4a5568; }
+        .bg-yellow { background-color: var(--yellow-tag); color: #b7791f; }
+        .bg-red { background-color: #fed7d7; color: #c53030; }
 
-        .details {
-            flex-grow: 1;
-            font-size: 15px;
-            font-weight: 500;
+        .content {
+            flex: 1;
+            min-width: 0;
         }
 
-        .sub-details {
+        .title {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            color: #1a202c;
+        }
+
+        .desc {
             font-size: 12px;
             color: var(--text-muted);
-            font-weight: normal;
-            margin-top: 2px;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
         }
 
-        /* Avatar Colors */
-        .c-MUA { background: #000; }
-        .c-Anais { background: #E91E63; }
-        .c-Kotlova { background: #9C27B0; }
-        .c-Etse { background: #673AB7; }
-        .c-Ariel { background: #3F51B5; }
-        .c-Magnus { background: #009688; }
-        .c-Eirik { background: #4CAF50; }
-        .c-Fatima { background: #FF9800; }
-        .c-Arjun { background: #795548; }
-        .c-Gottfried{ background: #607D8B; }
-        .c-Liam { background: #F44336; }
-        .c-Seerat { background: #00BCD4; }
-        .c-Yana { background: #FF5722; }
-        .c-Rafeek { background: #8BC34A; }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .tag {
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+        }
+        
+        .tag.highlight {
+            background: #e2e8f0;
+            color: #1a202c;
+        }
+        
+        .notice {
+            background: #fffaf0;
+            border: 1px dashed #ed8936;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 0 15px 20px;
+            font-size: 12px;
+            color: #dd6b20;
+            font-weight: 600;
+            text-align: center;
+        }
 
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>callsheet<span class="version">V8</span></h1>
-        <div class="date">May 18 — 2026</div>
-    </div>
+    <div class="container">
+        <div class="header">
+            <h1>HKU Photoshoot <span class="version">BATCH 2</span></h1>
+            <div class="date">May 18, 2026 (Monday)</div>
+        </div>
 
-    <div class="info-cards">
-        <div class="card">MAKE UP LOCATION<span>TBC</span></div>
-        <div class="card">CONTACT PERSON INFO<span>TBC</span></div>
-    </div>
+        <div class="info-cards">
+            <div class="card">MUA Arrive<span>07:05</span></div>
+            <div class="card">Crew Arrive<span>08:00</span></div>
+            <div class="card">Wrap Time<span>17:40</span></div>
+        </div>
+        
+        <div class="notice">💡 點擊下方演員頭像，自動篩選個人專屬行程</div>
 
-    <div class="talent-grid" id="talentGrid"></div>
-    <div class="timeline" id="timeline"></div>
-</div>
-
-<script>
-    const talents = [
-        "MUA", "Anaïs", "Kotlova", "Etse", "Ariel", "Magnus", "Eirik",
-        "Fatima", "Arjun", "Gottfried", "Liam", "Seerat", "Yana", "Rafeek"
-    ];
-
-    const schedule = [
-        { time: "7:05", type: "green", title: "MUA & HAIR arrived", sub: "", members: ["MUA"] },
-        { time: "7:20", type: "green", title: "Etse arrived", sub: "make up & hair 35mins", members: ["Etse", "MUA"] },
-        { time: "7:55", type: "green", title: "Ariel arrived", sub: "make up & hair 40mins", members: ["Ariel", "MUA"] },
-        { time: "8:00", type: "gray", title: "Crew arrived", sub: "", members: [] },
-        { time: "8:30", type: "gray", title: "HKU Team arrived", sub: "", members: [] },
-        { time: "8:35", type: "green", title: "Magnus arrived", sub: "make up & hair 20mins", members: ["Magnus", "MUA"] },
-        { time: "8:45", type: "blue", title: "Shot 1", sub: "(Etse, Ariel)", members: ["Etse", "Ariel"] },
-        { time: "9:00", type: "green", title: "Gottfried arrived", sub: "make up & hair 20mins", members: ["Gottfried", "MUA"] },
-        { time: "9:20", type: "green", title: "Kotlova arrived", sub: "make up & hair 40mins", members: ["Kotlova", "MUA"] },
-        { time: "9:20", type: "blue", title: "Shot 2", sub: "(Etse, Ariel, Magnus, Gottfried)", members: ["Etse", "Ariel", "Magnus", "Gottfried"] },
-        { time: "10:05", type: "blue", title: "Shot 3", sub: "(Etse, Ariel, Magnus, Gottfried, Kotlova)", members: ["Etse", "Ariel", "Magnus", "Gottfried", "Kotlova"] },
-        { time: "10:10", type: "green", title: "Seerat arrived", sub: "make up & hair 40mins", members: ["Seerat", "MUA"] },
-        { time: "10:50", type: "green", title: "Rafeek arrived", sub: "make up & hair 25mins", members: ["Rafeek", "MUA"] },
-        { time: "11:00", type: "blue", title: "Shot 4", sub: "(Ariel, Kotlova, Gottfried, Seerat)", members: ["Ariel", "Kotlova", "Gottfried", "Seerat"] },
-        { time: "11:15", type: "green", title: "MUA & HAIR Lunch", sub: "", members: ["MUA"] },
-        { time: "11:30", type: "blue", title: "Shot 5", sub: "(Ariel, Magnus, Kotlova, Seerat, Rafeek, Gottfried)", members: ["Ariel", "Magnus", "Kotlova", "Seerat", "Rafeek", "Gottfried"] },
-        { time: "12:10", type: "blue", title: "Shot 6", sub: "(Etse, Ariel, Magnus, Rafeek, Gottfried)", members: ["Etse", "Ariel", "Magnus", "Rafeek", "Gottfried"] },
-        { time: "12:15", type: "green", title: "Eirik arrived", sub: "make up & hair 30mins", members: ["Eirik", "MUA"] },
-        { time: "12:45", type: "green", title: "Fatima arrived", sub: "make up & hair 30mins", members: ["Fatima", "MUA"] },
-        { time: "12:55", type: "blue", title: "Shot 7", sub: "(Etse, Ariel, Magnus, Seerat, Eirik, Rafeek)", members: ["Etse", "Ariel", "Magnus", "Seerat", "Eirik", "Rafeek"] },
-        { time: "13:30", type: "gray", title: "Lunch time", sub: "", members: [] },
-        { time: "13:30", type: "green", title: "Liam arrived", sub: "make up & hair 25mins", members: ["Liam", "MUA"] },
-        { time: "14:25", type: "green", title: "Anaïs arrived", sub: "make up & hair 35mins", members: ["Anaïs", "MUA"] },
-        { time: "14:20", type: "blue", title: "Shot 8", sub: "(Etse, Ariel, Eirik, Fatima, Liam)", members: ["Etse", "Ariel", "Eirik", "Fatima", "Liam"] },
-        { time: "15:00", type: "green", title: "Arjun arrived", sub: "make up & hair 20mins", members: ["Arjun", "MUA"] },
-        { time: "15:00", type: "blue", title: "Shot 9", sub: "(Ariel, Kotlova, Liam, Anaïs)", members: ["Ariel", "Kotlova", "Liam", "Anaïs"] },
-        { time: "15:20", type: "green", title: "Yana arrived", sub: "make up & hair 40mins", members: ["Yana", "MUA"] },
-        { time: "16:00", type: "green", title: "MUA & HAIR WRAP", sub: "", members: ["MUA"] },
-        { time: "16:10", type: "blue", title: "Shot 10", sub: "(Eirik, Fatima, Arjun, Yana)", members: ["Eirik", "Fatima", "Arjun", "Yana"] },
-        { time: "16:50", type: "blue", title: "Shot 11", sub: "(Kotlova, Eirik, Fatima, Arjun, Anaïs)", members: ["Kotlova", "Eirik", "Fatima", "Arjun", "Anaïs"] },
-        { time: "17:35", type: "blue", title: "Shot 12", sub: "(Kotlova, Eirik, Arjun, Yana)", members: ["Kotlova", "Eirik", "Arjun", "Yana"] },
-        { time: "18:05", type: "blue", title: "Shot 13", sub: "(Anaïs, Arjun, Yana)", members: ["Anaïs", "Arjun", "Yana"] }
-    ];
-
-    let currentFilter = null;
-
-    const talentGrid = document.getElementById('talentGrid');
-    talents.forEach(t => {
-        const div = document.createElement('div');
-        div.className = 'talent-item';
-        div.setAttribute('data-name', t);
-        const initial = t === "MUA" ? "MUA" : (t === "Anaïs" ? "AN" : t.substring(0, 2).toUpperCase());
-        const displayName = t === "MUA" ? "MakeUp" : t;
-        const colorClass = `c-${t.replace('ï', 'i')}`;
-
-        div.innerHTML = `
-            <div class="avatar ${colorClass}">${initial}</div>
-            <div class="talent-name">${displayName}</div>
-        `;
-        div.addEventListener('click', () => toggleFilter(t));
-        talentGrid.appendChild(div);
-    });
-
-    const timeline = document.getElementById('timeline');
-    schedule.forEach((item, index) => {
-        const row = document.createElement('div');
-        row.className = 'row';
-        row.setAttribute('data-members', item.members.join(','));
-        row.innerHTML = `
-            <div class="time-badge bg-${item.type}">${item.time}</div>
-            <div class="details">
-                <div>${item.title}</div>
-                ${item.sub ? `<div class="sub-details">${item.sub}</div>` : ''}
+        <div class="talent-grid" id="talentGrid">
+            <div class="talent-item" data-id="karina">
+                <div class="avatar" style="background: #e53e3e;">KA</div>
+                <div class="talent-name">Karina</div>
             </div>
-        `;
-        timeline.appendChild(row);
-    });
+            <div class="talent-item" data-id="anson">
+                <div class="avatar" style="background: #3182ce;">AN</div>
+                <div class="talent-name">Anson</div>
+            </div>
+            <div class="talent-item" data-id="rico">
+                <div class="avatar" style="background: #38a169;">RI</div>
+                <div class="talent-name">Rico</div>
+            </div>
+            <div class="talent-item" data-id="quinten">
+                <div class="avatar" style="background: #d69e2e;">QU</div>
+                <div class="talent-name">Quinten</div>
+            </div>
+            <div class="talent-item" data-id="viola">
+                <div class="avatar" style="background: #805ad5;">VI</div>
+                <div class="talent-name">Viola</div>
+            </div>
+            <div class="talent-item" data-id="kerem">
+                <div class="avatar" style="background: #319795;">KE</div>
+                <div class="talent-name">Kerem</div>
+            </div>
+            <div class="talent-item" data-id="trey">
+                <div class="avatar" style="background: #dd6b20;">TR</div>
+                <div class="talent-name">Trey (New)</div>
+            </div>
+            <div class="talent-item" data-id="sharon">
+                <div class="avatar" style="background: #e53e3e;">SH</div>
+                <div class="talent-name">Sharon</div>
+            </div>
+            <div class="talent-item" data-id="aglaia">
+                <div class="avatar" style="background: #d53f8c;">AG</div>
+                <div class="talent-name">Aglaia</div>
+            </div>
+            <div class="talent-item" data-id="ariel">
+                <div class="avatar" style="background: #4a5568;">AR</div>
+                <div class="talent-name">Ariel</div>
+            </div>
+        </div>
 
-    function toggleFilter(name) {
-        const body = document.body;
-        const allTalentDivs = document.querySelectorAll('.talent-item');
-        const allRows = document.querySelectorAll('.row');
+        <div class="timeline">
+            <div class="row" data-talents="karina,anson,rico,quinten,viola,kerem">
+                <div class="time-badge bg-red">07:45+</div>
+                <div class="content">
+                    <div class="title">Morning MUA Sessions</div>
+                    <div class="desc">化妝師需為上午通告演員進行準備。</div>
+                    <div class="tags">
+                        <span class="tag">07:45 Karina</span>
+                        <span class="tag">08:05 Anson</span>
+                        <span class="tag">08:25 Rico</span>
+                        <span class="tag">08:30 Quinten</span>
+                        <span class="tag">09:10 Viola</span>
+                        <span class="tag">09:30 Kerem</span>
+                    </div>
+                </div>
+            </div>
 
-        if (currentFilter === name) {
-            currentFilter = null;
-            body.classList.remove('is-filtered');
-            allTalentDivs.forEach(el => el.classList.remove('inactive'));
-            allRows.forEach(el => { el.classList.remove('dimmed'); el.classList.remove('highlight'); });
-        } else {
-            currentFilter = name;
-            body.classList.add('is-filtered');
-            allTalentDivs.forEach(el => el.getAttribute('data-name') === name ? el.classList.remove('inactive') : el.classList.add('inactive'));
-            allRows.forEach(el => {
-                const members = el.getAttribute('data-members').split(',');
-                if (members.includes(name)) {
-                    el.classList.add('highlight');
-                    el.classList.remove('dimmed');
-                } else {
-                    el.classList.add('dimmed');
-                    el.classList.remove('highlight');
-                }
+            <div class="row">
+                <div class="time-badge bg-gray">08:00</div>
+                <div class="content">
+                    <div class="title">Crew Arrive & Setup</div>
+                    <div class="desc">所有工作人員到場準備器材。</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="karina,anson,rico">
+                <div class="time-badge bg-blue">08:45</div>
+                <div class="content">
+                    <div class="title">SHOT 01 (35')</div>
+                    <div class="desc">📍 Chi Wah Learning Commons</div>
+                    <div class="tags">
+                        <span class="tag highlight">Karina</span>
+                        <span class="tag highlight">Anson</span>
+                        <span class="tag highlight">Rico</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="karina,anson,rico,quinten">
+                <div class="time-badge bg-blue">09:20</div>
+                <div class="content">
+                    <div class="title">SHOT 02 (45')</div>
+                    <div class="desc">📍 Red Brick Wall (紅磚牆)</div>
+                    <div class="tags">
+                        <span class="tag highlight">Karina</span>
+                        <span class="tag highlight">Anson</span>
+                        <span class="tag highlight">Rico</span>
+                        <span class="tag highlight">Quinten</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="karina,anson,rico,quinten,viola,kerem">
+                <div class="time-badge bg-blue">10:05</div>
+                <div class="content">
+                    <div class="title">SHOT 03 (45')</div>
+                    <div class="desc">📍 Red Brick Wall (紅磚牆)</div>
+                    <div class="tags">
+                        <span class="tag highlight">Karina</span>
+                        <span class="tag highlight">Anson</span>
+                        <span class="tag highlight">Rico</span>
+                        <span class="tag highlight">Quinten</span>
+                        <span class="tag highlight">Viola</span>
+                        <span class="tag highlight">Kerem</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="trey,sharon">
+                <div class="time-badge bg-red">10:30+</div>
+                <div class="content">
+                    <div class="title">Mid-day MUA Sessions</div>
+                    <div class="desc">演員陸續到達並開始化妝。</div>
+                    <div class="tags">
+                        <span class="tag">10:30 Trey (New)</span>
+                        <span class="tag">11:00 Sharon</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="time-badge bg-gray">10:50</div>
+                <div class="content">
+                    <div class="title">Scene Change (15')</div>
+                    <div class="desc">移動至 University Street</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="quinten,viola,kerem,trey">
+                <div class="time-badge bg-blue">11:05</div>
+                <div class="content">
+                    <div class="title">SHOT 04 (50')</div>
+                    <div class="desc">📍 University Street, MTR Exit</div>
+                    <div class="tags">
+                        <span class="tag highlight">Quinten</span>
+                        <span class="tag highlight">Viola</span>
+                        <span class="tag highlight">Kerem</span>
+                        <span class="tag highlight">Trey</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="viola,kerem,trey,sharon">
+                <div class="time-badge bg-blue">11:55</div>
+                <div class="content">
+                    <div class="title">SHOT 05 (40')</div>
+                    <div class="desc">📍 University Street</div>
+                    <div class="tags">
+                        <span class="tag highlight">Viola</span>
+                        <span class="tag highlight">Kerem</span>
+                        <span class="tag highlight">Trey</span>
+                        <span class="tag highlight">Sharon</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="karina,anson,rico,quinten,viola,kerem,trey,sharon,aglaia,ariel">
+                <div class="time-badge bg-yellow">12:35</div>
+                <div class="content">
+                    <div class="title">Lunch Time (50')</div>
+                    <div class="desc">全體放飯休息 🍱</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="sharon,trey,anson,rico">
+                <div class="time-badge bg-blue">13:25</div>
+                <div class="content">
+                    <div class="title">SHOT 06 (60')</div>
+                    <div class="desc">📍 Innovation Wing (創科翼) - ⚠️ 注意玻璃反光</div>
+                    <div class="tags">
+                        <span class="tag highlight">Sharon</span>
+                        <span class="tag highlight">Trey</span>
+                        <span class="tag highlight">Anson</span>
+                        <span class="tag highlight">Rico</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="aglaia,ariel">
+                <div class="time-badge bg-red">14:00+</div>
+                <div class="content">
+                    <div class="title">Afternoon MUA Sessions</div>
+                    <div class="desc">下午限制時間到達之演員化妝。</div>
+                    <div class="tags">
+                        <span class="tag">14:00 Aglaia</span>
+                        <span class="tag">14:30 Ariel</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="sharon,trey,karina,quinten">
+                <div class="time-badge bg-blue">14:25</div>
+                <div class="content">
+                    <div class="title">SHOT 07 (60')</div>
+                    <div class="desc">📍 Innovation Wing (創科翼)</div>
+                    <div class="tags">
+                        <span class="tag highlight">Sharon</span>
+                        <span class="tag highlight">Trey</span>
+                        <span class="tag highlight">Karina</span>
+                        <span class="tag highlight">Quinten</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="aglaia,ariel,kerem">
+                <div class="time-badge bg-blue">15:25</div>
+                <div class="content">
+                    <div class="title">SHOT 08 (35')</div>
+                    <div class="desc">📍 Innovation Wing (創科翼)</div>
+                    <div class="tags">
+                        <span class="tag highlight">Aglaia</span>
+                        <span class="tag highlight">Ariel</span>
+                        <span class="tag highlight">Kerem</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="time-badge bg-gray">16:00</div>
+                <div class="content">
+                    <div class="title">Scene Change (15')</div>
+                    <div class="desc">移動至 Centennial Garden</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="aglaia,ariel,viola,anson,trey">
+                <div class="time-badge bg-green">16:15</div>
+                <div class="content">
+                    <div class="title">SHOT 09, 10, 11 (85')</div>
+                    <div class="desc">📍 Centennial Garden / Universe 萬象</div>
+                    <div class="tags">
+                        <span class="tag highlight">Aglaia</span>
+                        <span class="tag highlight">Ariel</span>
+                        <span class="tag highlight">Viola</span>
+                        <span class="tag highlight">Anson</span>
+                        <span class="tag highlight">Trey</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="time-badge bg-gray">17:40</div>
+                <div class="content">
+                    <div class="title">Wrap / 拍攝完結</div>
+                    <div class="desc">執拾器材，收工！🎉</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const talentItems = document.querySelectorAll('.talent-item');
+            const timelineRows = document.querySelectorAll('.row');
+            const body = document.body;
+            let activeTalentId = null;
+
+            talentItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const id = item.dataset.id;
+                    
+                    // If clicking the already active talent, turn off filter
+                    if (activeTalentId === id) {
+                        activeTalentId = null;
+                        body.classList.remove('is-filtered');
+                        
+                        talentItems.forEach(t => t.classList.remove('inactive'));
+                        timelineRows.forEach(row => {
+                            row.classList.remove('highlight', 'dimmed');
+                        });
+                    } 
+                    // Turn on/switch filter
+                    else {
+                        activeTalentId = id;
+                        body.classList.add('is-filtered');
+                        
+                        // Update avatars
+                        talentItems.forEach(t => {
+                            if (t.dataset.id === id) t.classList.remove('inactive');
+                            else t.classList.add('inactive');
+                        });
+                        
+                        // Update timeline rows
+                        timelineRows.forEach(row => {
+                            const rowTalents = row.dataset.talents ? row.dataset.talents.split(',') : [];
+                            if (rowTalents.includes(id)) {
+                                row.classList.add('highlight');
+                                row.classList.remove('dimmed');
+                            } else {
+                                row.classList.add('dimmed');
+                                row.classList.remove('highlight');
+                            }
+                        });
+                    }
+                });
             });
-        }
-    }
-</script>
+        });
+    </script>
 </body>
 </html>
