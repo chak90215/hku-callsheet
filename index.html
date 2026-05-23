@@ -174,4 +174,477 @@
             background: #fff;
         }
 
-        .time-
+        .time-badge {
+            width: 70px;
+            min-width: 70px;
+            padding: 6px 0;
+            text-align: center;
+            font-weight: 800;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-right: 12px;
+        }
+
+        .bg-green { background-color: var(--green-tag); color: #2e7d32; }
+        .bg-blue { background-color: var(--blue-tag); color: #1565c0; }
+        .bg-gray { background-color: #edf2f7; color: #4a5568; }
+        .bg-yellow { background-color: var(--yellow-tag); color: #b7791f; }
+        .bg-red { background-color: #fed7d7; color: #c53030; }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 28px;
+        }
+
+        .title {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            color: #1a202c;
+        }
+
+        .desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+        }
+        
+        .tag.highlight {
+            background: #e2e8f0;
+            color: #1a202c;
+        }
+        
+        .notice {
+            background: #fffaf0;
+            border: 1px dashed #ed8936;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 0 15px 20px;
+            font-size: 12px;
+            color: #dd6b20;
+            font-weight: 600;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>HKU Photoshoot <span class="version">BATCH 2 (V5)</span></h1>
+            <div class="date">May 26, 2026 (Tuesday)</div>
+        </div>
+
+        <div class="info-cards">
+            <div class="card">MUA Arrive<span>07:15</span></div>
+            <div class="card">Crew Arrive<span>08:00</span></div>
+            <div class="card">Wrap Time<span>17:40</span></div>
+        </div>
+        
+        <div class="notice">💡 Click an avatar to filter their specific schedule</div>
+
+        <div class="talent-grid" id="talentGrid">
+            <div class="talent-item" data-id="mua">
+                <div class="avatar" style="background: #1a202c;">💄</div>
+                <div class="talent-name">MUA</div>
+            </div>
+            <div class="talent-item" data-id="queren">
+                <div class="avatar" style="background: #d69e2e;">QU</div>
+                <div class="talent-name">Quéren</div>
+            </div>
+            <div class="talent-item" data-id="kotlova">
+                <div class="avatar" style="background: #e53e3e;">KO</div>
+                <div class="talent-name">Kotlova</div>
+            </div>
+            <div class="talent-item" data-id="anson">
+                <div class="avatar" style="background: #3182ce;">AN</div>
+                <div class="talent-name">Anson</div>
+            </div>
+            <div class="talent-item" data-id="trey">
+                <div class="avatar" style="background: #dd6b20;">TR</div>
+                <div class="talent-name">Trey</div>
+            </div>
+            <div class="talent-item" data-id="kerem">
+                <div class="avatar" style="background: #319795;">KE</div>
+                <div class="talent-name">Kerem</div>
+            </div>
+            <div class="talent-item" data-id="viola">
+                <div class="avatar" style="background: #805ad5;">VI</div>
+                <div class="talent-name">Viola</div>
+            </div>
+            <div class="talent-item" data-id="sharon">
+                <div class="avatar" style="background: #e53e3e;">SH</div>
+                <div class="talent-name">Sharon</div>
+            </div>
+            <div class="talent-item" data-id="rico">
+                <div class="avatar" style="background: #38a169;">RI</div>
+                <div class="talent-name">Rico</div>
+            </div>
+            <div class="talent-item" data-id="aglaia">
+                <div class="avatar" style="background: #d53f8c;">AG</div>
+                <div class="talent-name">Aglaia</div>
+            </div>
+            <div class="talent-item" data-id="ariel">
+                <div class="avatar" style="background: #4a5568;">AR</div>
+                <div class="talent-name">Ariel</div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            
+            <div class="row" data-talents="mua">
+                <div class="time-badge bg-gray">07:15</div>
+                <div class="content">
+                    <div class="title">MUA & Hair Arrived</div>
+                    <div class="desc">Setup equipment and station (07:15 - 07:25)</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="kotlova,mua">
+                <div class="time-badge bg-red">07:20</div>
+                <div class="content">
+                    <div class="title">Kotlova Arrived</div>
+                    <div class="desc">Makeup Time: 07:25 - 08:00 (35m)</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="queren,mua">
+                <div class="time-badge bg-red">07:55</div>
+                <div class="content">
+                    <div class="title">Quéren Arrived</div>
+                    <div class="desc">Makeup Time: 08:00 - 08:30 (30m)</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="time-badge bg-gray">08:00</div>
+                <div class="content">
+                    <div class="title">Crew Arrived</div>
+                    <div class="desc">Equipment setup and location check</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="anson,mua">
+                <div class="time-badge bg-red">08:25</div>
+                <div class="content">
+                    <div class="title">Anson Arrived</div>
+                    <div class="desc">Makeup Time: 08:30 - 08:45 (15m)</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="trey,mua">
+                <div class="time-badge bg-red">08:40</div>
+                <div class="content">
+                    <div class="title">Trey Arrived</div>
+                    <div class="desc">Makeup Time: 08:45 - 09:05 (20m)</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="queren,kotlova,anson">
+                <div class="time-badge bg-blue">08:45</div>
+                <div class="content">
+                    <div class="title">Shot 01 (35m)</div>
+                    <div class="desc">📍 Chi Wah Learning Commons</div>
+                    <div class="tags">
+                        <span class="tag highlight">Quéren</span>
+                        <span class="tag highlight">Kotlova</span>
+                        <span class="tag highlight">Anson</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="kerem,mua">
+                <div class="time-badge bg-red">09:00</div>
+                <div class="content">
+                    <div class="title">Kerem Arrived</div>
+                    <div class="desc">Makeup Time: 09:05 - 09:25 (20m)</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="queren,kotlova,anson,trey">
+                <div class="time-badge bg-blue">09:20</div>
+                <div class="content">
+                    <div class="title">Shot 02 (45m)</div>
+                    <div class="desc">📍 Red Brick Wall</div>
+                    <div class="tags">
+                        <span class="tag highlight">Quéren</span>
+                        <span class="tag highlight">Kotlova</span>
+                        <span class="tag highlight">Anson</span>
+                        <span class="tag highlight">Trey</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="viola,mua">
+                <div class="time-badge bg-red">09:20</div>
+                <div class="content">
+                    <div class="title">Viola Arrived</div>
+                    <div class="desc">Makeup Time: 09:25 - 10:00 (35m)</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="sharon,mua">
+                <div class="time-badge bg-red">09:55</div>
+                <div class="content">
+                    <div class="title">Sharon Arrived</div>
+                    <div class="desc">Makeup Time: 10:00 - 10:40 (40m)</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="queren,kotlova,anson,trey,kerem">
+                <div class="time-badge bg-blue">10:05</div>
+                <div class="content">
+                    <div class="title">Shot 03 (45m)</div>
+                    <div class="desc">📍 Red Brick Wall</div>
+                    <div class="tags">
+                        <span class="tag highlight">Quéren</span>
+                        <span class="tag highlight">Kotlova</span>
+                        <span class="tag highlight">Anson</span>
+                        <span class="tag highlight">Trey</span>
+                        <span class="tag highlight">Kerem</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="time-badge bg-gray">10:50</div>
+                <div class="content">
+                    <div class="title">Scene Change (15m)</div>
+                    <div class="desc">Move to University Street</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="trey,kerem,viola,sharon">
+                <div class="time-badge bg-blue">11:05</div>
+                <div class="content">
+                    <div class="title">Shot 04 (50m)</div>
+                    <div class="desc">📍 University Street, MTR Exit</div>
+                    <div class="tags">
+                        <span class="tag highlight">Trey</span>
+                        <span class="tag highlight">Kerem</span>
+                        <span class="tag highlight">Viola</span>
+                        <span class="tag highlight">Sharon</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="rico,mua">
+                <div class="time-badge bg-red">11:55</div>
+                <div class="content">
+                    <div class="title">Rico Arrived</div>
+                    <div class="desc">Makeup Time: 12:00 - 12:25 (25m)</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="kotlova,trey,kerem,viola">
+                <div class="time-badge bg-blue">11:55</div>
+                <div class="content">
+                    <div class="title">Shot 05 (40m)</div>
+                    <div class="desc">📍 University Street</div>
+                    <div class="tags">
+                        <span class="tag highlight">Kotlova</span>
+                        <span class="tag highlight">Trey</span>
+                        <span class="tag highlight">Kerem</span>
+                        <span class="tag highlight">Viola</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="time-badge bg-gray">12:35</div>
+                <div class="content">
+                    <div class="title">Scene Change (15m)</div>
+                    <div class="desc">Move to Innovation Wing II</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="rico">
+                <div class="time-badge bg-blue">12:50</div>
+                <div class="content">
+                    <div class="title">Shot 06 (40m)</div>
+                    <div class="desc">📍 Innovation Wing II</div>
+                    <div class="tags">
+                        <span class="tag highlight">Rico</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="queren,kotlova,anson,trey,kerem,viola,sharon,rico,mua">
+                <div class="time-badge bg-yellow">13:30</div>
+                <div class="content">
+                    <div class="title">Lunch Time</div>
+                    <div class="desc">Crew & Talent Lunch Break (13:30 - 14:15)</div>
+                </div>
+            </div>
+            
+            <div class="row" data-talents="aglaia,mua">
+                <div class="time-badge bg-red">14:10</div>
+                <div class="content">
+                    <div class="title">Aglaia Arrived</div>
+                    <div class="desc">Makeup Time: 14:15 - 14:50 (35m)</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="queren,kotlova,anson,trey,rico">
+                <div class="time-badge bg-blue">14:15</div>
+                <div class="content">
+                    <div class="title">Shot 07 (45m)</div>
+                    <div class="desc">📍 Innovation Wing II <br><small>⚠️ Watch out for glass reflections</small></div>
+                    <div class="tags">
+                        <span class="tag highlight">Quéren</span>
+                        <span class="tag highlight">Kotlova</span>
+                        <span class="tag highlight">Anson</span>
+                        <span class="tag highlight">Trey</span>
+                        <span class="tag highlight">Rico</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="ariel,mua">
+                <div class="time-badge bg-red">14:45</div>
+                <div class="content">
+                    <div class="title">Ariel Arrived</div>
+                    <div class="desc">Makeup Time: 14:50 - 15:30 (40m)</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="time-badge bg-gray">15:00</div>
+                <div class="content">
+                    <div class="title">Scene Change (15m)</div>
+                    <div class="desc">Move to Centennial Garden</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="aglaia,trey,rico,kerem,viola">
+                <div class="time-badge bg-blue">15:15</div>
+                <div class="content">
+                    <div class="title">Shot 08 (60m)</div>
+                    <div class="desc">📍 Centennial Garden</div>
+                    <div class="tags">
+                        <span class="tag highlight">Aglaia</span>
+                        <span class="tag highlight">Trey</span>
+                        <span class="tag highlight">Rico</span>
+                        <span class="tag highlight">Kerem</span>
+                        <span class="tag highlight">Viola</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="trey,ariel">
+                <div class="time-badge bg-blue">16:15</div>
+                <div class="content">
+                    <div class="title">Shot 09 (20m)</div>
+                    <div class="desc">📍 Centennial Garden</div>
+                    <div class="tags">
+                        <span class="tag highlight">Trey</span>
+                        <span class="tag highlight">Ariel</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="time-badge bg-gray">16:35</div>
+                <div class="content">
+                    <div class="title">Scene Change (15m)</div>
+                    <div class="desc">Move to Universe</div>
+                </div>
+            </div>
+
+            <div class="row" data-talents="ariel,aglaia,rico,kerem,viola">
+                <div class="time-badge bg-green">16:50</div>
+                <div class="content">
+                    <div class="title">Shot 10 (50m)</div>
+                    <div class="desc">📍 Universe</div>
+                    <div class="tags">
+                        <span class="tag highlight">Ariel</span>
+                        <span class="tag highlight">Aglaia</span>
+                        <span class="tag highlight">Rico</span>
+                        <span class="tag highlight">Kerem</span>
+                        <span class="tag highlight">Viola</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" data-talents="mua">
+                <div class="time-badge bg-gray">17:40</div>
+                <div class="content">
+                    <div class="title">Wrap! 🎉</div>
+                    <div class="desc">Pack up equipment, end of shoot.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const talentItems = document.querySelectorAll('.talent-item');
+            const timelineRows = document.querySelectorAll('.row');
+            const body = document.body;
+            let activeTalentId = null;
+
+            talentItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const id = item.dataset.id;
+                    
+                    // If clicking the already active talent, turn off filter
+                    if (activeTalentId === id) {
+                        activeTalentId = null;
+                        body.classList.remove('is-filtered');
+                        
+                        talentItems.forEach(t => t.classList.remove('inactive'));
+                        timelineRows.forEach(row => {
+                            row.classList.remove('highlight', 'dimmed');
+                        });
+                    } 
+                    // Turn on/switch filter
+                    else {
+                        activeTalentId = id;
+                        body.classList.add('is-filtered');
+                        
+                        // Update avatars
+                        talentItems.forEach(t => {
+                            if (t.dataset.id === id) t.classList.remove('inactive');
+                            else t.classList.add('inactive');
+                        });
+                        
+                        // Update timeline rows
+                        timelineRows.forEach(row => {
+                            const rowTalents = row.dataset.talents ? row.dataset.talents.split(',') : [];
+                            if (rowTalents.includes(id)) {
+                                row.classList.add('highlight');
+                                row.classList.remove('dimmed');
+                            } else {
+                                row.classList.add('dimmed');
+                                row.classList.remove('highlight');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
