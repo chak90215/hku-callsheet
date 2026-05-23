@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Call Sheet Batch 2 (V7 - Finalized Rico) | May 26 - 2026</title>
+    <title>Call Sheet Batch 2 (V9 - Updated Shot 06) | May 26 - 2026</title>
     <style>
         :root {
             --bg-color: #f9f9fa;
@@ -62,6 +62,16 @@
             font-size: 14px;
             color: var(--text-muted);
             font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .header .location {
+            font-size: 13px;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
         }
 
         .info-cards {
@@ -253,8 +263,9 @@
 
     <div class="container">
         <div class="header">
-            <h1>HKU Photoshoot <span class="version">BATCH 2 (V7)</span></h1>
+            <h1>HKU Photoshoot <span class="version">BATCH 2 (V9)</span></h1>
             <div class="date">May 26, 2026 (Tuesday)</div>
+            <div class="location">📍 Main Location: HKU Run Run Shaw Podium</div>
         </div>
 
         <div class="info-cards">
@@ -476,7 +487,7 @@
                 <div class="time-badge bg-gray">12:35</div>
                 <div class="content">
                     <div class="title">Scene Change (15m)</div>
-                    <div class="desc">Move to Innovation Wing II</div>
+                    <div class="desc">Move to HKU Run Run Shaw Podium</div>
                 </div>
             </div>
 
@@ -484,7 +495,7 @@
                 <div class="time-badge bg-blue">12:50</div>
                 <div class="content">
                     <div class="title">Shot 06 (40m)</div>
-                    <div class="desc">📍 Innovation Wing II</div>
+                    <div class="desc">📍 HKU Run Run Shaw Podium</div>
                     <div class="tags">
                         <span class="tag highlight">Rico</span>
                     </div>
@@ -571,80 +582,3 @@
                     <div class="title">Scene Change (15m)</div>
                     <div class="desc">Move to Universe</div>
                 </div>
-            </div>
-
-            <div class="row" data-talents="ariel,aglaia,rico,kerem,viola">
-                <div class="time-badge bg-green">16:50</div>
-                <div class="content">
-                    <div class="title">Shot 10 (50m)</div>
-                    <div class="desc">📍 Universe</div>
-                    <div class="tags">
-                        <span class="tag highlight">Ariel</span>
-                        <span class="tag highlight">Aglaia</span>
-                        <span class="tag highlight">Rico</span>
-                        <span class="tag highlight">Kerem</span>
-                        <span class="tag highlight">Viola</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row" data-talents="mua">
-                <div class="time-badge bg-gray">17:40</div>
-                <div class="content">
-                    <div class="title">Wrap! 🎉</div>
-                    <div class="desc">Pack up equipment, end of shoot.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const talentItems = document.querySelectorAll('.talent-item');
-            const timelineRows = document.querySelectorAll('.row');
-            const body = document.body;
-            let activeTalentId = null;
-
-            talentItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const id = item.dataset.id;
-                    
-                    // If clicking the already active talent, turn off filter
-                    if (activeTalentId === id) {
-                        activeTalentId = null;
-                        body.classList.remove('is-filtered');
-                        
-                        talentItems.forEach(t => t.classList.remove('inactive'));
-                        timelineRows.forEach(row => {
-                            row.classList.remove('highlight', 'dimmed');
-                        });
-                    } 
-                    // Turn on/switch filter
-                    else {
-                        activeTalentId = id;
-                        body.classList.add('is-filtered');
-                        
-                        // Update avatars
-                        talentItems.forEach(t => {
-                            if (t.dataset.id === id) t.classList.remove('inactive');
-                            else t.classList.add('inactive');
-                        });
-                        
-                        // Update timeline rows
-                        timelineRows.forEach(row => {
-                            const rowTalents = row.dataset.talents ? row.dataset.talents.split(',') : [];
-                            if (rowTalents.includes(id)) {
-                                row.classList.add('highlight');
-                                row.classList.remove('dimmed');
-                            } else {
-                                row.classList.add('dimmed');
-                                row.classList.remove('highlight');
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-</html>
